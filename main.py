@@ -9,6 +9,7 @@ import grove_gesture_sensor # ジェスチャーセンサ
 import grove_rgb_lcd        # ディスプレイ(GroveRgbLcd)
 import ultrasonic_sensor    # 超音波センサ(HYSRF05)
 from tm1637 import TM1637   # ディスプレイ(TM1637)
+from math import ceil
 
 from time import sleep
 from os import getenv
@@ -45,9 +46,9 @@ def cds_to_rgb(value):
     if value <= 1:
         return [0,0,255]
     else:         
-        red = 255 * (value // 3000)
-        blue = 255 * (1 - (value // 3000))
-        return [red,0,blue] # R G B
+        red = 255 * (value / 3000)
+        blue = 255 * (1 - (value / 3000))
+        return [ceil(red),0,ceil(blue)] # R G B
     
 # 処理の本体
 try:
