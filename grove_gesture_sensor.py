@@ -379,67 +379,85 @@ class gesture:
 			data=self.paj7620ReadReg(0x43, 1)[0]
 			if data == self.GES_FORWARD_FLAG:
 				print("Forward")
+				return "Forward"
 				time.sleep(self.GES_QUIT_TIME)
 			elif data == self.GES_BACKWARD_FLAG:
 				print("Backward")
+				return "Backward"
 				time.sleep(self.GES_QUIT_TIME)
 			else:
 				print("Right")
+				return "Right"
 
 		elif data==self.GES_LEFT_FLAG:
 			time.sleep(self.GES_ENTRY_TIME)
 			data=self.paj7620ReadReg(0x43, 1)[0]
 			if data == self.GES_FORWARD_FLAG:
 				print("Forward")
+				return "Forward"
 				time.sleep(self.GES_QUIT_TIME)
 			elif data == self.GES_BACKWARD_FLAG:
 				print("Backward")
+				return "Backward"
 				time.sleep(self.GES_QUIT_TIME)
 			else:
 				print("Left")
+				return "Left"
 
 		elif data==self.GES_UP_FLAG:
 			time.sleep(self.GES_ENTRY_TIME)
 			data=self.paj7620ReadReg(0x43, 1)[0]
 			if data == self.GES_FORWARD_FLAG:
 				print("Forward")
+				return "Forward"
 				time.sleep(self.GES_QUIT_TIME)
 			elif data == self.GES_BACKWARD_FLAG:
 				print("Backward")
+				return "Backward"
 				time.sleep(self.GES_QUIT_TIME)
 			else:
 				print("Up")
+				return "Up"
 
 		elif data==self.GES_DOWN_FLAG:
 			time.sleep(self.GES_ENTRY_TIME)
 			data=self.paj7620ReadReg(0x43, 1)[0]
 			if data == self.GES_FORWARD_FLAG:
 				print("Forward")
+				return "Forward"
 				time.sleep(self.GES_QUIT_TIME)
 			elif data == self.GES_BACKWARD_FLAG:
 				print("Backward")
+				return "Backward"
 				time.sleep(self.GES_QUIT_TIME)
 			else:
 				print("Down")
+				return "Down"
 
 		elif data==self.GES_FORWARD_FLAG:
 			print("Forward")
+			return "Forward"
 			time.sleep(self.GES_QUIT_TIME)
 
 		elif data==self.GES_BACKWARD_FLAG:
 			print("Backward")
+			return "Backward"
 			time.sleep(self.GES_QUIT_TIME)
 
 		elif data==self.GES_CLOCKWISE_FLAG:
 			print("Clockwise")
+			return "Clockwise"
 
 		elif data==self.GES_COUNT_CLOCKWISE_FLAG:
 			print("anti-clockwise")
+			return "aniti-clockwise"
 
 		else:
 			data1=self.paj7620ReadReg(0x44, 1)[0]
 			if (data1 == self.GES_WAVE_FLAG):
 				print("wave")
+				return "wave"
+		return "Nothing"
 
 	#Return a vlaue from the gestire sensor which can be used in a program
 	# 	0:nothing
@@ -465,7 +483,7 @@ class gesture:
 				return 2
 				time.sleep(self.GES_QUIT_TIME)
 			else:
-				return 3
+				return 3	
 
 		elif data==self.GES_LEFT_FLAG:
 			time.sleep(self.GES_ENTRY_TIME)
@@ -524,8 +542,9 @@ class gesture:
 		return 0
 
 if __name__ == "__main__":
-	g=gesture()
+	g = gesture()
 	g.init()
+	
 	while True:
 		g.print_gesture()
 		time.sleep(.1)

@@ -13,67 +13,69 @@ from math import ceil
 
 from time import sleep
 from os import getenv
-# from dotenv import load_dotenv
+from dotenv import load_dotenv
 
 # 変数
-ambi_cnt:int = 0
-gest_convert = ["NOTHING","FORWARD", "BACKWARD", "RIGHT", "LEFT", "UP", "DOWN", "CLOCKWISE", "ANTI-CLOCWISE", "WAVE"]
+ambi_cnt = 0
+gest = None
 
 # 環境変数を取得
-# load_dotenv()
-# channel_id = getenv("CHANNEL_ID")
-# write_key = getenv("WRITE_KEY")
+load_dotenv()
+channel_id = getenv("CHANNEL_ID")
+write_key = getenv("WRITE_KEY")
 
-
-# インスタンスを生成するところ
-# ambi_inst = ambient.Ambient(channel_id, write_key)
+# インスタンスを生成
+ambi_inst = ambient.Ambient(channel_id, write_key)
 gest_inst = grove_gesture_sensor.gesture()
-tm1637_inst = TM1637(clk=26,dio=19,brightness=1)
+gest_inst.init()
+tm1637_inst = TM1637(clk=26, dio=19, brightness=1)
 grove_lcd_inst = grove_rgb_lcd.rgb_lcd()
 ultrasonic_inst = ultrasonic_sensor.HYSRF05()
 
-
-# Ambientにデータを送る関数
+# Ambient.ioにデータを送る関数
 def send_ambient(ambi_inst,json_data:dict):
     try:
         ret = ambi_inst.send(json_data)
-        print(ret.status_code)
+        print(f"Ambient.io Status Code:{ret.status_code}")
     except requests.exceptions.RequestException as e:
         print(f">> Request failed: {e}")
         return e
 
 def cds_to_rgb(value):
-    if value <= 1:
-        return [0,0,255]
-    else:         
-        red = 255 * (value / 3000)
-        blue = 255 * (1 - (value / 3000))
-        return [ceil(red),0,ceil(blue)] # R G B
-    
+    red = 255 * ((value+1) / 3500)
+    blue = 255 * (1 - ((value+1) / 3500))
+    return [ceil(red), 0, ceil(blue)] # R G B
+
 # 処理の本体
 try:
     while True:
-        gesture_result = gest_convert[gest_inst.return_gesture()] # ジェスチャの戻り値を文字列に変換
-        grove_lcd_inst.setText(text=gesture_result)               # GroveLCDにジェスチャ結果を表示
+        us_dist = ultrasonic_inst.get_distance()                    # 超音波センサから距離を取得
+        Potentiomater = readadc(3)                                  # 半固定抵抗の値
+        JoyStick_X = readadc(1)                                     # ジョイスティックのX軸値
+        gest_tmp = gest_inst.print_gesture()                        # ジェスチャの値をGroveLCDの文字列に反映
+        if gest_tmp != "Nothing":                                   # ジェスチャの値がNothing以外なら
+            gest = gest_tmp                                         # ジェスチャの戻り値を文字列に変換
+            grove_lcd_inst.setText(text=gest)                       # GroveLCDにジェスチャ結果を表示
+        CdS = readadc(0)                                            # 光センサからの明るさ
+        r, g, b = cds_to_rgb(CdS)                                   # Cdsの値をRGBに変換()
+        grove_lcd_inst.setRGB(r, g, b)                              # GroveLCDにCdS結果を表示
+        tm1637_inst.number(Potentiomater)                           # TM1637に半固定抵抗の値を書き込み
         
-        us_dist = ultrasonic_inst.get_distance()                  # 超音波センサから距離を取得
-        CdS = readadc(0)                                          # 光センサからの明るさ
-        Potentiomater = readadc(3)                                # 半固定抵抗の値
-        JoyStick_X = readadc(1)                                   # ジョイスティックのX軸値
-        print(f"ジェスチャー:{us_dist}\nCdS:{CdS}\n半固定抵抗:{Potentiomater}\nJoyStick_X:{JoyStick_X}")
-        
-        r, g, b = cds_to_rgb(CdS)
-        grove_lcd_inst.setRGB(r, g, b)
-        
-        tm1637_inst.number(Potentiomater)                         # TM1637に半固定抵抗の値を書き込み
-        
-        # if ambi_cnt == 6:
-        #     send_ambient(ambi_inst, {"d1":us_dist})
-        #     ambi_cnt = 0
-            
-        ambi_cnt += 3
-        sleep(3)
+        print(f"超音波:{us_dist}")
+        print(f"CdS:{CdS}")
+        print(f"CdS R:{r}")
+        print(f"CdS G:{g}")
+        print(f"CdS B:{b}")
+        print(f"半固定抵抗:{Potentiomater}")
+        print(f"JoyStick_X:{JoyStick_X}")
+        print(f"ジェスチャー:{gest}")
+
+        ambi_cnt += 1
+        if ambi_cnt >= 700:
+            send_ambient(ambi_inst, {"d7":us_dist})
+            ambi_cnt = 1
+
+        sleep(.1)
+
 except KeyboardInterrupt:
     print("interrupted!")
-
-    
