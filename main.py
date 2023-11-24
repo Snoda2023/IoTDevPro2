@@ -13,20 +13,20 @@ from math import ceil
 
 from time import sleep
 from os import getenv
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 
 # 変数
 ambi_cnt:int = 0
 gest_convert = ["NOTHING","FORWARD", "BACKWARD", "RIGHT", "LEFT", "UP", "DOWN", "CLOCKWISE", "ANTI-CLOCWISE", "WAVE"]
 
 # 環境変数を取得
-load_dotenv()
-channel_id = getenv("CHANNEL_ID")
-write_key = getenv("WRITE_KEY")
+# load_dotenv()
+# channel_id = getenv("CHANNEL_ID")
+# write_key = getenv("WRITE_KEY")
 
 
 # インスタンスを生成するところ
-ambi_inst = ambient.Ambient(channel_id, write_key)
+# ambi_inst = ambient.Ambient(channel_id, write_key)
 gest_inst = grove_gesture_sensor.gesture()
 tm1637_inst = TM1637(clk=26,dio=19,brightness=1)
 grove_lcd_inst = grove_rgb_lcd.rgb_lcd()
@@ -62,8 +62,8 @@ try:
         JoyStick_X = readadc(1)                                   # ジョイスティックのX軸値
         print(f"ジェスチャー:{us_dist}\nCdS:{CdS}\n半固定抵抗:{Potentiomater}\nJoyStick_X:{JoyStick_X}")
         
-        
-        grove_lcd_inst.setRGB(cds_to_rgb(CdS))
+        r, g, b = cds_to_rgb(CdS)
+        grove_lcd_inst.setRGB(r, g, b)
         
         tm1637_inst.number(Potentiomater)                         # TM1637に半固定抵抗の値を書き込み
         

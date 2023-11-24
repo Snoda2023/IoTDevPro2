@@ -29,14 +29,15 @@ class HYSRF05:
 
         return (t2 - t1) * self.speed_of_sound / 2 # 時間差から対象物までの距離計算
 
+if __name__ == "__main__":
 
-while True:                                         # 繰り返し処理
-    hysrf05_instance = HYSRF05()
-    try:
-        distance = '{:.1f}'.format(hysrf05_instance.get_distance())  # 小数点1までまるめ
-        print("Distance: " + distance + "cm")       # 表示
-        time.sleep(1)                               # 1秒まつ
+    while True:                                         # 繰り返し処理
+        hysrf05_instance = HYSRF05()
+        try:
+            distance = '{:.1f}'.format(hysrf05_instance.get_distance())  # 小数点1までまるめ
+            print("Distance: " + distance + "cm")       # 表示
+            time.sleep(1)                               # 1秒まつ
 
-    except KeyboardInterrupt:                       # Ctrl + C押されたたら
-        GPIO.cleanup()                              # GPIOお片付け
-        sys.exit()                                  # プログラム終了
+        except KeyboardInterrupt:                       # Ctrl + C押されたたら
+            GPIO.cleanup()                              # GPIOお片付け
+            sys.exit()                                  # プログラム終了

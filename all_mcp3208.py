@@ -41,6 +41,7 @@ def readadc(adcnum=0, clockpin=11, mosipin=10, misopin=9, cspin=8):
     GPIO.output(cspin, GPIO.HIGH)           # CSをHIGHにし、SPI通信を終了する
     return adcout
 
+
 GPIO.setmode(GPIO.BCM)          # BCMピン番号を使用
 # ピンの名前を変数として定義
 SPICLK = 11                     # クロック
@@ -53,20 +54,22 @@ GPIO.setup(SPIMOSI, GPIO.OUT)
 GPIO.setup(SPIMISO, GPIO.IN)
 GPIO.setup(SPICS, GPIO.OUT)
 
-try:
-    while True:
-        CdS = readadc(0, SPICLK, SPIMOSI, SPIMISO, SPICS)
-        print(f"CdS          : {CdS}")
-        Potentiomater = readadc(1, SPICLK, SPIMOSI, SPIMISO, SPICS)
-        print(f"Potentiomater: {Potentiomater}")
-        JoyStick_X = readadc(2, SPICLK, SPIMOSI, SPIMISO, SPICS)
-        print(f"JoyStick_X   : {JoyStick_X-2047}")
-        JoyStick_Y = readadc(3, SPICLK, SPIMOSI, SPIMISO, SPICS)
-        print(f"JoyStick_Y   : {(4095-JoyStick_Y)-2047}")
-        print("========== ==========")
-        sleep(0.2)
+if __name__ == "__main__":
 
-except KeyboardInterrupt:       # Cntl+Cを押すとKeyboardInterruptが送信される
-    pass                        # 何もせずに次の命令に移る
+    try:
+        while True:
+            CdS = readadc(0, SPICLK, SPIMOSI, SPIMISO, SPICS)
+            print(f"CdS          : {CdS}")
+            Potentiomater = readadc(1, SPICLK, SPIMOSI, SPIMISO, SPICS)
+            print(f"Potentiomater: {Potentiomater}")
+            JoyStick_X = readadc(2, SPICLK, SPIMOSI, SPIMISO, SPICS)
+            print(f"JoyStick_X   : {JoyStick_X-2047}")
+            JoyStick_Y = readadc(3, SPICLK, SPIMOSI, SPIMISO, SPICS)
+            print(f"JoyStick_Y   : {(4095-JoyStick_Y)-2047}")
+            print("========== ==========")
+            sleep(0.2)
 
-GPIO.cleanup()                  # GPIOの設定を解除する
+    except KeyboardInterrupt:       # Cntl+Cを押すとKeyboardInterruptが送信される
+        pass                        # 何もせずに次の命令に移る
+
+    GPIO.cleanup()                  # GPIOの設定を解除する

@@ -113,7 +113,7 @@ class rgb_lcd:
         self.bus.write_i2c_block_data(self.DISPLAY_TEXT_ADDR, 0x40, pattern)
 
 # example code
-if __name__=="__main__":
+if __name__ == "__main__":
     rgb_lcd_instance = rgb_lcd()
     rgb_lcd_instance.setText("Hello world\nThis is an LCD test")
     rgb_lcd_instance.setRGB(0,128,64)
