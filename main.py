@@ -1,5 +1,5 @@
 ## Created by Shotaro Noda (TK220137)
-## Last Update: 2023-11-20
+## Last Update: 2023-11-24
 ## Class: IoT Device Programming IIA
 
 import ambient
@@ -49,15 +49,16 @@ try:
         grove_lcd_inst.setText(text=gesture_result)               # GroveLCDにジェスチャ結果を表示
         
         us_dist = ultrasonic_inst.get_distance()                  # 超音波センサから距離を取得
-        CdS = readadc(0)
-        Potentiomater = readadc(1)
-        JoyStick_X = readadc(2)
+        CdS = readadc(0)                                          # 光センサからの明るさ
+        Potentiomater = readadc(1)                                # 半固定抵抗の値
+        JoyStick_X = readadc(2)                                   # ジョイスティックのX軸値
+        print(f"ジェスチャー:{us_dist}\nCdS:{CdS}\n半固定抵抗:{Potentiomater}\nJoyStick_X:{JoyStick_X}")
         
         tm1637_inst.number(Potentiomater)                         # TM1637に半固定抵抗の値を書き込み
         
-        if ambi_cnt == 6:
-            send_ambient(ambi_inst, {"d1":us_dist})
-            ambi_cnt = 0
+        # if ambi_cnt == 6:
+        #     send_ambient(ambi_inst, {"d1":us_dist})
+        #     ambi_cnt = 0
             
         ambi_cnt += 2
         sleep(2)
