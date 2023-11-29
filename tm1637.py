@@ -63,8 +63,9 @@ class TM1637(object):
         GPIO.setup(self.dio, GPIO.OUT, initial=GPIO.LOW)
 
     def __del__(self):
-        GPIO.cleanup(self.clk)
-        GPIO.cleanup(self.dio)
+        pass
+        # GPIO.cleanup(self.clk)
+        # GPIO.cleanup(self.dio)
 
     def _start(self):
         GPIO.output(self.clk, GPIO.HIGH)

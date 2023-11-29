@@ -41,20 +41,19 @@ def readadc(adcnum=0, clockpin=11, mosipin=10, misopin=9, cspin=8):
     GPIO.output(cspin, GPIO.HIGH)           # CSをHIGHにし、SPI通信を終了する
     return adcout
 
-
-GPIO.setmode(GPIO.BCM)          # BCMピン番号を使用
-# ピンの名前を変数として定義
-SPICLK = 11                     # クロック
-SPIMOSI = 10                    # 出力
-SPIMISO = 9                     # 入力
-SPICS = 8                       # チップ・セレクト
-# SPI通信用の入出力を定義
-GPIO.setup(SPICLK, GPIO.OUT)
-GPIO.setup(SPIMOSI, GPIO.OUT)
-GPIO.setup(SPIMISO, GPIO.IN)
-GPIO.setup(SPICS, GPIO.OUT)
-
 if __name__ == "__main__":
+
+    GPIO.setmode(GPIO.BCM)          # BCMピン番号を使用
+    # ピンの名前を変数として定義
+    SPICLK = 11                     # クロック
+    SPIMOSI = 10                    # 出力
+    SPIMISO = 9                     # 入力
+    SPICS = 8                       # チップ・セレクト
+    # SPI通信用の入出力を定義
+    GPIO.setup(SPICLK, GPIO.OUT)
+    GPIO.setup(SPIMOSI, GPIO.OUT)
+    GPIO.setup(SPIMISO, GPIO.IN)
+    GPIO.setup(SPICS, GPIO.OUT)
 
     try:
         while True:

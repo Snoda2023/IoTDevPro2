@@ -116,11 +116,35 @@ class rgb_lcd:
 if __name__ == "__main__":
     rgb_lcd_instance = rgb_lcd()
     rgb_lcd_instance.setText("Hello world\nThis is an LCD test")
-    rgb_lcd_instance.setRGB(0,128,64)
+    rgb_lcd_instance.setRGB(0, 128, 64)
     time.sleep(2)
     for c in range(0,255):
-        rgb_lcd_instance.setText_norefresh("Going to sleep in {}...".format(str(c)))
-        rgb_lcd_instance.setRGB(c,255-c,0)
-        time.sleep(0.1)
-    rgb_lcd_instance.setRGB(0,255,0)
+        rgb_lcd_instance.setText_norefresh(f"Going to sleep in {c}...")
+        rgb_lcd_instance.setRGB(c, 255-c, 0)
+        time.sleep(2)
+    rgb_lcd_instance.setRGB(0, 255, 0)
     rgb_lcd_instance.setText("Bye bye, this should wrap onto next line")
+    
+    # cの値と反映した背景色
+    # 0 黒
+    # 1 赤
+    # 2 黒
+    # 3 黒
+    # 4 緑
+    # 5 黄
+    # 6 緑
+    # 7 緑
+    # 8 黒
+    # 9 赤
+    # 10 黒
+    # 11 黒
+    # 12 黒
+    # 13 赤
+    # 14 黒
+    # 15 黒
+    # 16 青
+    # 17 紫
+    # 18 青
+    # 19 青
+    # 20 水
+    # 21 白
