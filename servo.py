@@ -1,5 +1,5 @@
-import pigpio
 import time
+import pigpio
 
 class SG90:
     def __init__(self, pin=4):

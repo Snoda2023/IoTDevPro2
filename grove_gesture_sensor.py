@@ -1,22 +1,4 @@
-#!/usr/bin/env python
-#
-# GrovePi Library for using the Grove - Gesture Sensor v1.0(http://www.seeedstudio.com/depot/Grove-Gesture-p-2463.html)
-#
-# The GrovePi connects the Raspberry Pi and Grove sensors.  You can learn more about GrovePi here:  http://www.dexterindustries.com/GrovePi
-#
-# Have a question about this library?  Ask on the forums here:  http://forum.dexterindustries.com/c/grovepi
-#
-# History
-# ------------------------------------------------
-# Author	Date      		Comments
-# Karan		31 Dec 15	  	Initial Authoring
-#
-# Code derived from the basic Arduino library for the Gesture Sensor by Seeed: https://github.com/Seeed-Studio/Gesture_PAJ7620
-
-# Released under the MIT license (http://choosealicense.com/licenses/mit/).
-# For more information see https://github.com/DexterInd/GrovePi/blob/master/LICENSE
-
-import time,sys
+import time
 import RPi.GPIO as GPIO
 import smbus
 

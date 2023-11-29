@@ -4,8 +4,8 @@ import RPi.GPIO as GPIO
 
 class HYSRF05:
     def __init__(self, trig_pin=15, echo_pin=14, speed_of_sound=34370):
-        self.trig_pin = trig_pin                # GPIO 15
-        self.echo_pin = echo_pin                # GPIO 14
+        self.trig_pin = trig_pin
+        self.echo_pin = echo_pin
         self.speed_of_sound = speed_of_sound    # 20℃での音速(cm/s)
 
         GPIO.setmode(GPIO.BCM)                  # GPIOをBCMモードで使用

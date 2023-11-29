@@ -1,25 +1,3 @@
-#!/usr/bin/env python
-#
-# GrovePi Example for using the Grove - LCD RGB Backlight (http://www.seeedstudio.com/wiki/Grove_-_LCD_RGB_Backlight)
-#
-# The GrovePi connects the Raspberry Pi and Grove sensors.  You can learn more about GrovePi here:  http://www.dexterindustries.com/GrovePi
-#
-# Have a question about this example?  Ask on the forums here:  http://forum.dexterindustries.com/c/grovepi
-#
-# History
-# ------------------------------------------------
-# Author	Date      		Comments
-# 						  	Initial Authoring
-# Karan		7 Jan 16		Library updated to add a function to update the text without erasing the screen
-# Released under the MIT license (http://choosealicense.com/licenses/mit/).
-# For more information see https://github.com/DexterInd/GrovePi/blob/master/LICENSE
-
-#
-# NOTE:
-# 	Just supports setting the backlight colour, and
-# 	putting a single string of text onto the display
-# 	Doesn't support anything clever, cursors or anything
-
 import sys
 import time
 
