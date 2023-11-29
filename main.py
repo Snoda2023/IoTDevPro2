@@ -144,15 +144,15 @@ if __name__ == "__main__":
             # 7秒おきにAmbient.ioに計測したデータを送信(0.5秒*14回=7秒)
             ambi_cnt += 1
             if ambi_cnt > 14:
-                # send_ambient(ambi_inst, {
-                #     "d1": CdS,
-                #     "d2": Potentiomater,
-                #     "d3": JoyStick_X,
-                #     "d4": JoyStick_Y,
-                #     "d5": gest,
-                #     "d6": us_dist
-                # })
-                # print(f"========== ========== ==========")
+                send_ambient(ambi_inst, {
+                    "d1": CdS,
+                    "d2": Potentiomater,
+                    "d3": JoyStick_X,
+                    "d4": JoyStick_Y,
+                    "d5": gest,
+                    "d6": us_dist
+                })
+                print(f"========== ========== ==========")
                 ambi_cnt = 1
 
             sleep(.5)
